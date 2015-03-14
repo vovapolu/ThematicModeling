@@ -33,6 +33,20 @@ def cutZeroes(m):
     zeroEps = 0.00001
     m[np.abs(m) < zeroEps] = 0
 
+def getVersion():
+    try:
+        with file("version.txt", "r") as vFile:
+            ver = int(vFile.readline())
+    except IOError:
+        ver = 0
+    return ver
+
+def incrementVersion():
+    ver = getVersion()
+    with file("version.txt", "w") as vFile:
+        vFile.write("{0}".format(ver + 1))
+    return ver + 1
+
 def loadFromFile(filename):
     phi = np.loadtxt(filename + "_phi.txt")
     theta = np.loadtxt(filename + "_theta.txt")
@@ -138,10 +152,11 @@ def EM(ndw, wCount, tCount, alpha, beta):
         for d in xrange(dCount):
             for wInd in xrange(len(ndw[d])):
                 w, wVal = (ndw[d][wInd][0], ndw[d][wInd][1])
-                z = np.dot(phi[w], theta[:, d])
-                delta = wVal * (phi[w] * theta[:, d]) / z
+                delta = phi[w] * theta[: ,d]
+                delta = delta * wVal / sum(delta)
                 nwt[w] += delta
                 ndt[d] += delta
+
         for w in xrange(wCount):
             phi[w] = positiveSliceVec(nwt[w] + alpha[w])
         phi = np.apply_along_axis(normalized, 0, phi)
@@ -200,14 +215,16 @@ def calculateHellingerDists(correctPhi0, correctTheta0, correctProduct, phi, the
     return (distPhi, distTheta, distProduct)
 
 def reconstructSubjects(phi0, theta0, phi, theta, res):
-    expectedVal = np.sqrt(len(res)) / (np.sqrt(2) * 3)
-    diffsPhi = np.array([hellinger2(phi0[:, e[0]], phi[:, e[1]]) for e in res]) / expectedVal
-    diffsTheta = np.array([hellinger2(theta0[e[0]], theta[e[1]]) for e in res]) / expectedVal
+    expectedValTheta = np.sqrt(len(theta0[0])) / (np.sqrt(2) * 3)
+    expectedValPhi = np.sqrt(len(phi0[:, 0])) / (np.sqrt(2) * 3)
+    diffsPhi = np.array([hellinger2(phi0[:, e[0]], phi[:, e[1]]) for e in res]) / expectedValPhi
+    diffsTheta = np.array([hellinger2(theta0[e[0]], theta[e[1]]) for e in res]) / expectedValTheta
     allDiffs = diffsPhi + diffsTheta
     print len(allDiffs[allDiffs < 1]), "subjects were reconstructed."
     print np.arange(len(allDiffs))[allDiffs < 1]
-    print allDiffs[allDiffs < 1]
-    return np.dstack((np.arange(len(allDiffs))[allDiffs < 1], allDiffs[allDiffs < 1]))[0]
+    print allDiffs
+
+    return (np.arange(len(allDiffs))[allDiffs < 1], allDiffs[allDiffs < 1])
 
 def check(tCount, dCount, wCount):
     phi, theta, ndw = generateData(tCount, dCount, wCount)
@@ -233,6 +250,7 @@ def check(tCount, dCount, wCount):
 
 def checkMoreSubjects(tCount, dCount, wCount, tCountEM, isGeneratingData):
     if isGeneratingData:
+        incrementVersion()
         phi, theta, ndw = generateData(tCount, dCount, wCount)
         writeDataToFile("data", phi, theta, ndw)
     else:
@@ -252,12 +270,15 @@ def checkMoreSubjects(tCount, dCount, wCount, tCountEM, isGeneratingData):
 
     res = compareMatrices(phi0, theta0, phi, theta)
     subjects = reconstructSubjects(phi0, theta0, phi, theta, res)
-
-#ndw, wCount = loadFromFile("data.txt")
-#np.set_printoptions(precision=2, linewidth=1000, suppress=True)
-#print genTheta(10, 50, 0.1)
+    with file("results.txt", "a") as afile:
+        afile.write("Data version: {0}\n".format(getVersion()))
+        afile.write("T = {0}, T0 = {1}, D = {2}, W = {3}\n".format(tCount, tCountEM, dCount, wCount))
+        afile.write("{0} subjects were reconstructed.\n".format(len(subjects[0])))
+        afile.write("{0}\n".format(subjects[0]))
+        afile.write("{0}\n".format(subjects[1]))
 
 #check(50, 250, 1000)
 #check(10, 10, 10)
 #checkMoreSubjects(100, 200, 1000, 20, True)
-checkMoreSubjects(50, 100, 500, 20, False)
+for i in xrange(10):
+    checkMoreSubjects(100, 1000, 1000, 10, True)
