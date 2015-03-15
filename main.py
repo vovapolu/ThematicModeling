@@ -313,14 +313,30 @@ def checkMoreSubjects(tCount, dCount, wCount, tCountEM, isGeneratingData, isSave
 
 p = multiprocessing.Pool(processes=3)
 processes = []
-id = 0
-for a in np.linspace(-0.2, 0.2, num=40):
-    id += 1
-    processes.append(p.apply_async(checkMoreSubjects, args=(100, 1000, 1000, 10, True, False, a, a, 0.01, id)))
+id = 101
+#for a in np.linspace(-0.2, 0.2, num=40):
+#    id += 1
+#    processes.append(p.apply_async(checkMoreSubjects, args=(100, 1000, 1000, 10, True, False, a, a, 0.01, id)))
 
-for d in np.linspace(0, 1.5, num=20):
-    id += 1
-    processes.append(p.apply_async(checkMoreSubjects, args=(100, 1000, 1000, 10, True, False, 0, 0, d, id)))
+#for d in np.linspace(0.001, 1.5, num=20):
+#    id += 1
+#    processes.append(p.apply_async(checkMoreSubjects, args=(100, 1000, 1000, 10, True, False, 0, 0, d, id)))
+
+#id += 1
+#checkMoreSubjects(100, 1000, 1000, 10, True, True, 0.01, 0.01, 0.01, id)
+
+#for a in np.linspace(-0.3, 0.3, num=20):
+#    id += 1
+#    processes.append(p.apply_async(checkMoreSubjects, args=(100, 1000, 1000, 10, False, False, a, a, 0.05, id)))
+
+#for d in np.linspace(0.001, 0.2, num=20):
+#    id += 1
+#    processes.append(p.apply_async(checkMoreSubjects, args=(100, 1000, 1000, 10, True, False, 0, 0, d, id)))
+
+for t0 in xrange(10, 30, 4):
+    for t in xrange(100, 500, 100):
+    	id += 1
+    	processes.append(p.apply_async(checkMoreSubjects, args=(t, 1000, 1000, t0, True, False, -0.02, -0.02, 0.01, id)))
 
 for p in processes:
     p.get()

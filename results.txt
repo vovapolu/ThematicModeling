@@ -1,0 +1,716 @@
+Data version: 1
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+[0 1 2 3 4 5 6 7 8 9]
+[ 0.79181308  0.81853365  0.82375407  0.73420297  0.89468929  0.85537279
+  0.84776722  0.80890261  0.86584828  0.88635603]
+Data version: 4
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.82 0.85 0.78 0.84 0.74 0.88 0.86 0.85 0.97 0.76 
+Data version: 4
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.76 0.89 0.88 0.84 0.80 0.85 0.88 0.84 0.88 0.76 
+Data version: 4
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 3 4 5 6 7 8 9 
+0.89 0.98 0.83 0.91 0.65 0.87 0.92 0.97 0.72 
+Data version: 5
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 
+0.82 0.93 0.91 0.75 0.86 0.82 0.74 0.74 0.80 
+Data version: 5
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.84 0.96 0.81 0.80 0.91 0.79 0.95 0.72 0.78 0.81 
+Data version: 5
+T = 100, T0 = 10, D = 1000, W = 1000
+5 subjects were reconstructed.
+1 3 6 7 8 
+0.94 0.97 0.89 0.87 0.94 
+Data version: 6
+T = 100, T0 = 10, D = 1000, W = 1000
+6 subjects were reconstructed.
+0 3 5 6 7 8 
+0.80 0.80 0.93 0.79 0.95 0.97 
+Data version: 6
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.78 0.85 0.93 0.89 0.90 0.82 0.70 0.90 0.89 0.77 
+Data version: 6
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.82 0.93 0.81 0.87 0.80 0.77 0.80 0.82 0.89 0.94 
+Data version: 7
+T = 100, T0 = 10, D = 1000, W = 1000
+8 subjects were reconstructed.
+0 1 2 3 4 5 6 8 
+0.74 0.82 0.77 0.88 0.83 0.81 0.84 0.99 
+Data version: 7
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 3 4 5 6 7 8 9 
+0.79 0.84 0.76 0.81 0.92 0.76 0.85 0.90 0.87 
+Data version: 7
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.83 0.86 0.93 0.84 0.84 0.71 0.73 1.00 0.80 0.72 
+Data version: 8
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.97 0.78 0.85 0.82 0.85 0.77 0.94 0.69 0.87 0.65 
+Data version: 8
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.85 0.87 0.87 0.85 0.91 0.78 0.85 0.68 0.94 0.76 
+Data version: 8
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.85 0.68 0.77 0.78 0.87 0.84 0.83 0.95 0.90 0.80 
+Data version: 9
+T = 100, T0 = 10, D = 1000, W = 1000
+7 subjects were reconstructed.
+0 1 2 3 5 7 9 
+0.87 0.90 0.85 0.91 0.76 0.92 0.75 
+Data version: 9
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 
+0.85 0.83 0.80 0.77 0.83 0.82 0.80 0.86 0.79 
+Data version: 1
+T = 100, T0 = 10, D = 1000, W = 1000
+8 subjects were reconstructed.
+0 1 2 3 4 7 8 9 
+0.89 0.71 0.75 0.87 0.89 0.90 0.94 0.97 
+Data version: 3
+T = 100, T0 = 10, D = 1000, W = 1000
+8 subjects were reconstructed.
+0 1 2 3 4 7 8 9 
+0.88 0.71 0.75 0.87 0.89 0.89 0.93 0.98 
+Data version: 2
+T = 100, T0 = 10, D = 1000, W = 1000
+8 subjects were reconstructed.
+0 1 2 3 4 7 8 9 
+0.87 0.71 0.75 0.87 0.88 0.89 0.93 0.96 
+Data version: 4
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 6 7 8 9 
+0.85 0.83 0.81 0.83 0.77 0.76 0.90 0.86 0.86 
+Data version: 5
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 6 7 8 9 
+0.85 0.83 0.81 0.83 0.77 0.76 0.91 0.85 0.85 
+Data version: 6
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 6 7 8 9 
+0.85 0.83 0.81 0.81 0.77 0.76 0.92 0.85 0.85 
+Data version: 7
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+1 2 3 4 5 6 7 8 9 
+0.90 0.89 0.80 0.83 0.85 0.73 0.94 0.83 0.83 
+Data version: 8
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+1 2 3 4 5 6 7 8 9 
+0.89 0.89 0.80 0.83 0.83 0.72 0.94 0.82 0.83 
+Data version: 9
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+1 2 3 4 5 6 7 8 9 
+0.89 0.89 0.80 0.83 0.83 0.72 0.94 0.82 0.83 
+Data version: 10
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 5 6 8 9 
+0.85 0.82 0.82 0.84 0.83 0.73 0.98 0.79 0.87 
+Data version: 11
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 5 6 8 9 
+0.85 0.82 0.82 0.83 0.84 0.73 0.98 0.79 0.87 
+Data version: 12
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 5 6 8 9 
+0.85 0.82 0.82 0.83 0.83 0.73 0.98 0.79 0.87 
+Data version: 13
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.88 0.83 0.93 0.90 0.81 0.88 0.94 0.77 0.82 0.89 
+Data version: 14
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.88 0.83 0.93 0.90 0.81 0.88 0.94 0.77 0.82 0.89 
+Data version: 15
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.88 0.83 0.93 0.90 0.81 0.88 0.94 0.77 0.82 0.89 
+Data version: 16
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 5 6 8 9 
+0.95 0.84 0.99 0.82 0.86 0.84 0.85 0.97 0.67 
+Data version: 17
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 5 6 8 9 
+0.95 0.84 0.99 0.83 0.86 0.84 0.86 0.97 0.67 
+Data version: 18
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 5 6 8 9 
+0.95 0.83 0.98 0.82 0.86 0.83 0.86 0.97 0.67 
+Data version: 20
+T = 100, T0 = 10, D = 1000, W = 1000
+8 subjects were reconstructed.
+0 1 2 3 4 5 6 8 
+0.68 0.88 0.80 0.84 0.82 0.86 0.74 0.84 
+Data version: 19
+T = 100, T0 = 10, D = 1000, W = 1000
+8 subjects were reconstructed.
+0 1 2 3 4 5 6 8 
+0.68 0.88 0.80 0.85 0.83 0.87 0.72 0.84 
+Data version: 21
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.67 0.87 0.77 0.83 0.57 0.82 0.71 0.96 0.84 0.92 
+Data version: 22
+T = 100, T0 = 10, D = 1000, W = 1000
+5 subjects were reconstructed.
+0 1 2 5 8 
+0.85 0.79 0.86 0.87 0.96 
+Data version: 23
+T = 100, T0 = 10, D = 1000, W = 1000
+5 subjects were reconstructed.
+0 1 2 5 8 
+0.85 0.79 0.86 0.87 0.95 
+Data version: 24
+T = 100, T0 = 10, D = 1000, W = 1000
+5 subjects were reconstructed.
+0 1 2 5 8 
+0.85 0.79 0.85 0.87 0.95 
+Data version: 25
+T = 100, T0 = 10, D = 1000, W = 1000
+5 subjects were reconstructed.
+1 2 7 8 9 
+0.93 0.95 0.87 0.89 0.85 
+Data version: 26
+T = 100, T0 = 10, D = 1000, W = 1000
+5 subjects were reconstructed.
+1 2 7 8 9 
+0.93 0.95 0.87 0.89 0.85 
+Data version: 27
+T = 100, T0 = 10, D = 1000, W = 1000
+5 subjects were reconstructed.
+1 2 7 8 9 
+0.93 0.95 0.87 0.89 0.85 
+Data version: 28
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 5 6 7 9 
+0.78 0.81 0.76 0.89 0.79 0.69 0.84 0.78 0.82 
+Data version: 29
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 5 6 7 9 
+0.78 0.81 0.76 0.89 0.80 0.69 0.85 0.78 0.82 
+Data version: 30
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.74 0.83 0.77 0.85 0.78 0.49 0.83 0.77 0.99 0.77 
+Data version: 31
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.96 0.75 0.81 0.70 0.82 0.84 0.98 0.91 0.68 0.85 
+Data version: 32
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.96 0.76 0.81 0.69 0.82 0.84 0.97 0.91 0.68 0.85 
+Data version: 33
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.96 0.76 0.81 0.69 0.82 0.84 0.97 0.91 0.68 0.85 
+Data version: 34
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+1 2 3 4 5 6 7 8 9 
+0.83 0.89 0.86 0.78 0.92 0.77 0.79 0.80 0.69 
+Data version: 35
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+1 2 3 4 5 6 7 8 9 
+0.83 0.89 0.86 0.78 0.92 0.77 0.79 0.80 0.69 
+Data version: 36
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+1 2 3 4 5 6 7 8 9 
+0.83 0.89 0.86 0.78 0.92 0.77 0.79 0.80 0.69 
+Data version: 37
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.85 0.86 0.80 0.77 0.75 0.93 0.84 0.57 0.80 0.91 
+Data version: 38
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.85 0.86 0.80 0.77 0.75 0.93 0.84 0.57 0.80 0.91 
+Data version: 39
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.85 0.86 0.80 0.77 0.75 0.93 0.84 0.57 0.80 0.91 
+Data version: 42
+T = 100, T0 = 10, D = 1000, W = 1000
+7 subjects were reconstructed.
+0 4 5 6 7 8 9 
+0.95 0.98 0.92 0.90 0.87 0.98 0.98 
+Data version: 40
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 6 7 8 9 
+0.84 0.88 0.81 0.90 0.89 0.93 0.85 0.71 0.89 
+Data version: 41
+T = 100, T0 = 10, D = 1000, W = 1000
+6 subjects were reconstructed.
+1 3 4 5 6 8 
+0.99 0.97 0.95 0.97 0.92 0.95 
+Data version: 43
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 
+0.97 0.95 0.90 0.94 0.88 0.90 0.98 0.87 0.95 
+Data version: 44
+T = 100, T0 = 10, D = 1000, W = 1000
+8 subjects were reconstructed.
+0 1 3 5 6 7 8 9 
+0.89 0.95 0.85 0.93 0.87 0.87 0.85 0.82 
+Data version: 42
+T = 100, T0 = 10, D = 1000, W = 1000
+6 subjects were reconstructed.
+2 5 6 7 8 9 
+1.00 0.91 0.94 0.92 0.89 0.92 
+Data version: 45
+T = 100, T0 = 10, D = 1000, W = 1000
+8 subjects were reconstructed.
+0 1 2 3 4 5 7 8 
+0.84 0.87 0.82 0.91 0.84 0.90 0.84 0.92 
+Data version: 46
+T = 100, T0 = 10, D = 1000, W = 1000
+8 subjects were reconstructed.
+1 2 4 5 6 7 8 9 
+0.81 0.89 0.85 0.88 0.84 0.87 0.82 0.84 
+Data version: 47
+T = 100, T0 = 10, D = 1000, W = 1000
+8 subjects were reconstructed.
+1 2 3 4 5 7 8 9 
+0.84 0.86 0.86 0.82 0.88 0.83 0.81 0.89 
+Data version: 48
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.95 0.82 0.80 0.85 0.86 0.90 0.96 0.80 0.80 1.00 
+Data version: 49
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.84 0.94 0.95 0.90 0.87 0.83 0.81 0.84 0.83 0.87 
+Data version: 50
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 
+0.84 0.85 0.78 0.81 0.86 0.98 0.81 0.77 0.79 
+Data version: 51
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 
+0.83 0.91 0.77 0.76 0.91 0.81 0.80 0.78 0.90 
+Data version: 52
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 5 7 8 9 
+0.92 0.80 0.79 0.85 0.82 0.79 0.82 0.96 0.79 
+Data version: 53
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.81 0.79 0.99 0.80 0.88 0.81 0.85 0.79 0.98 0.84 
+Data version: 54
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 2 3 4 5 6 7 8 9 
+0.89 0.80 0.80 0.75 0.98 0.83 0.83 0.83 0.77 
+Data version: 55
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.83 0.86 0.80 0.79 0.79 0.97 0.83 0.76 0.82 0.99 
+Data version: 56
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 
+0.77 0.86 0.77 0.75 0.75 0.82 0.99 0.78 0.87 
+Data version: 57
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+1 2 3 4 5 6 7 8 9 
+0.92 0.79 0.79 0.88 0.76 0.76 0.76 0.85 0.90 
+Data version: 58
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 5 6 7 9 
+0.81 0.81 0.87 0.82 0.79 0.86 0.80 0.89 0.80 
+Data version: 59
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.76 0.96 0.95 0.79 0.78 0.95 0.86 0.79 0.80 0.76 
+Data version: 60
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.78 0.85 0.98 0.96 0.75 0.88 0.75 0.90 0.77 0.78 
+Data version: 61
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.95 0.89 0.84 0.83 0.90 0.76 0.66 0.75 0.82 0.77 
+Data version: 64
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.72 0.89 0.92 0.79 0.87 0.85 0.90 0.82 0.87 0.80 
+Data version: 63
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.72 0.88 0.93 0.79 0.86 0.85 0.90 0.82 0.87 0.80 
+Data version: 62
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.72 0.88 0.93 0.79 0.87 0.85 0.90 0.82 0.87 0.80 
+Data version: 66
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 6 7 8 9 
+0.79 0.98 0.82 0.86 0.94 0.78 0.69 0.99 0.90 
+Data version: 65
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 6 7 8 9 
+0.79 0.96 0.82 0.86 0.93 0.78 0.69 0.98 0.89 
+Data version: 67
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 6 7 8 9 
+0.78 0.98 0.81 0.86 0.91 0.79 0.69 0.93 0.88 
+Data version: 68
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+1 2 3 4 5 6 7 8 9 
+0.85 0.87 0.73 0.77 0.86 1.00 0.91 0.92 0.77 
+Data version: 69
+T = 100, T0 = 10, D = 1000, W = 1000
+8 subjects were reconstructed.
+1 2 3 4 5 7 8 9 
+0.85 0.87 0.73 0.77 0.86 0.91 0.92 0.76 
+Data version: 70
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+1 2 3 4 5 6 7 8 9 
+0.85 0.87 0.74 0.77 0.85 0.98 0.91 0.92 0.76 
+Data version: 71
+T = 100, T0 = 10, D = 1000, W = 1000
+8 subjects were reconstructed.
+1 2 3 4 5 6 7 8 
+0.98 0.75 0.91 0.89 0.85 0.85 0.95 0.93 
+Data version: 72
+T = 100, T0 = 10, D = 1000, W = 1000
+8 subjects were reconstructed.
+1 2 3 4 5 6 7 8 
+0.98 0.75 0.91 0.89 0.85 0.85 0.95 0.93 
+Data version: 73
+T = 100, T0 = 10, D = 1000, W = 1000
+8 subjects were reconstructed.
+1 2 3 4 5 6 7 8 
+0.98 0.75 0.91 0.89 0.85 0.85 0.95 0.93 
+Data version: 74
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.99 0.71 0.77 0.97 0.83 0.87 0.88 0.88 0.79 0.89 
+Data version: 75
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.99 0.71 0.77 0.97 0.83 0.87 0.88 0.88 0.79 0.89 
+Data version: 76
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.99 0.72 0.78 0.97 0.82 0.87 0.88 0.88 0.79 0.89 
+Data version: 77
+T = 100, T0 = 10, D = 1000, W = 1000
+7 subjects were reconstructed.
+2 3 4 6 7 8 9 
+0.86 0.98 0.87 0.97 0.90 0.94 0.92 
+Data version: 78
+T = 100, T0 = 10, D = 1000, W = 1000
+7 subjects were reconstructed.
+2 3 4 6 7 8 9 
+0.87 0.98 0.87 0.97 0.90 0.94 0.92 
+Data version: 79
+T = 100, T0 = 10, D = 1000, W = 1000
+7 subjects were reconstructed.
+2 3 4 6 7 8 9 
+0.87 0.98 0.87 0.97 0.90 0.94 0.92 
+Data version: 80
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.83 0.88 0.88 0.77 0.82 0.81 0.83 0.90 0.65 0.91 
+Data version: 81
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.84 0.88 0.88 0.77 0.82 0.81 0.83 0.90 0.66 0.91 
+Data version: 82
+T = 100, T0 = 10, D = 1000, W = 1000
+7 subjects were reconstructed.
+0 2 3 4 5 6 9 
+0.94 0.96 0.98 0.84 0.89 0.97 0.94 
+Data version: 86
+T = 100, T0 = 10, D = 1000, W = 1000
+6 subjects were reconstructed.
+0 4 6 7 8 9 
+0.85 0.81 0.93 0.88 0.85 0.90 
+Data version: 83
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.84 0.81 0.82 0.91 0.86 0.88 0.75 0.74 0.90 0.82 
+Data version: 82
+T = 100, T0 = 10, D = 1000, W = 1000
+6 subjects were reconstructed.
+0 4 5 7 8 9 
+0.96 0.98 0.96 0.94 0.91 0.94 
+Data version: 84
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 4 5 6 7 8 9 
+0.84 0.78 0.82 0.80 0.98 0.93 0.83 0.85 0.86 
+Data version: 85
+T = 100, T0 = 10, D = 1000, W = 1000
+7 subjects were reconstructed.
+1 2 3 5 7 8 9 
+0.84 0.83 1.00 0.78 0.93 0.87 0.89 
+Data version: 83
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.84 0.77 0.74 0.77 0.85 0.84 0.89 0.84 0.88 0.94 
+Data version: 86
+T = 100, T0 = 10, D = 1000, W = 1000
+8 subjects were reconstructed.
+0 1 2 3 4 7 8 9 
+0.89 0.97 0.98 0.85 0.84 0.92 0.93 0.81 
+Data version: 87
+T = 100, T0 = 10, D = 1000, W = 1000
+8 subjects were reconstructed.
+0 1 2 3 4 5 7 9 
+1.00 0.93 0.88 0.92 0.93 0.99 0.89 0.94 
+Data version: 88
+T = 100, T0 = 10, D = 1000, W = 1000
+7 subjects were reconstructed.
+0 1 4 5 6 7 9 
+0.98 0.86 0.91 0.93 0.90 0.92 0.88 
+Data version: 91
+T = 100, T0 = 10, D = 1000, W = 1000
+8 subjects were reconstructed.
+0 1 2 3 5 6 8 9 
+0.97 0.95 0.92 0.89 0.93 0.89 0.89 0.98 
+Data version: 89
+T = 100, T0 = 10, D = 1000, W = 1000
+7 subjects were reconstructed.
+0 1 3 5 6 8 9 
+0.99 0.96 0.95 0.97 0.88 0.97 0.89 
+Data version: 90
+T = 100, T0 = 10, D = 1000, W = 1000
+6 subjects were reconstructed.
+0 1 4 6 7 8 
+0.92 0.88 0.96 0.91 0.91 0.93 
+Data version: 92
+T = 100, T0 = 10, D = 1000, W = 1000
+8 subjects were reconstructed.
+0 1 3 4 5 6 8 9 
+0.95 0.92 0.95 0.97 0.87 0.90 0.93 0.95 
+Data version: 93
+T = 100, T0 = 10, D = 1000, W = 1000
+7 subjects were reconstructed.
+1 2 3 4 6 7 8 
+0.90 0.89 0.89 0.92 0.95 0.91 0.91 
+Data version: 94
+T = 100, T0 = 10, D = 1000, W = 1000
+7 subjects were reconstructed.
+0 1 3 4 6 7 8 
+0.89 0.92 0.97 0.87 0.88 0.90 0.88 
+Data version: 95
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 2 3 4 5 6 7 8 9 
+0.93 0.96 0.96 0.89 0.96 0.95 0.87 0.96 0.99 
+Data version: 96
+T = 100, T0 = 10, D = 1000, W = 1000
+8 subjects were reconstructed.
+0 2 3 4 5 6 7 9 
+0.98 0.93 1.00 0.89 0.88 0.87 0.90 0.94 
+Data version: 97
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 
+0.94 0.99 0.88 0.90 0.90 1.00 0.92 0.91 0.90 
+Data version: 98
+T = 100, T0 = 10, D = 1000, W = 1000
+8 subjects were reconstructed.
+0 1 3 4 5 6 7 9 
+0.95 0.93 0.86 0.89 0.87 1.00 0.90 0.87 
+Data version: 99
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 5 6 8 9 
+0.86 0.88 0.96 0.88 0.86 0.96 0.93 0.95 0.92 
+Data version: 100
+T = 100, T0 = 10, D = 1000, W = 1000
+7 subjects were reconstructed.
+0 2 4 5 7 8 9 
+0.95 0.89 0.86 0.88 0.85 0.87 0.93 
+Data version: 101
+T = 100, T0 = 10, D = 1000, W = 1000
+10 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 
+0.98 0.86 0.90 0.91 0.95 0.88 0.85 0.98 0.97 0.98 
+Data version: 104
+T = 300, T0 = 10, D = 1000, W = 1000
+6 subjects were reconstructed.
+0 1 3 4 7 9 
+0.93 0.87 0.96 0.85 0.92 0.89 
+Data version: 103
+T = 200, T0 = 10, D = 1000, W = 1000
+8 subjects were reconstructed.
+0 3 4 5 6 7 8 9 
+0.99 0.83 0.83 0.74 0.80 0.81 0.99 0.99 
+Data version: 102
+T = 100, T0 = 10, D = 1000, W = 1000
+9 subjects were reconstructed.
+0 1 2 3 4 6 7 8 9 
+0.76 0.92 0.85 0.75 0.91 0.90 0.76 0.79 0.85 
+Data version: 105
+T = 400, T0 = 10, D = 1000, W = 1000
+7 subjects were reconstructed.
+0 2 3 6 7 8 9 
+0.85 0.87 0.90 0.89 0.83 0.87 0.89 
+Data version: 106
+T = 100, T0 = 14, D = 1000, W = 1000
+12 subjects were reconstructed.
+0 1 2 3 4 6 7 8 9 10 12 13 
+0.70 0.77 0.74 0.80 0.71 0.78 0.74 0.65 0.68 0.69 0.64 0.73 
+Data version: 107
+T = 200, T0 = 14, D = 1000, W = 1000
+14 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 
+0.79 0.95 0.84 0.71 0.94 0.67 0.71 0.72 0.85 0.86 0.74 0.70 0.65 0.83 
+Data version: 108
+T = 300, T0 = 14, D = 1000, W = 1000
+12 subjects were reconstructed.
+0 1 2 5 6 7 8 9 10 11 12 13 
+0.74 0.84 0.81 0.72 0.92 0.83 0.94 0.78 0.74 0.72 0.80 0.80 
+Data version: 109
+T = 400, T0 = 14, D = 1000, W = 1000
+11 subjects were reconstructed.
+0 1 3 4 5 7 8 9 11 12 13 
+0.76 0.80 0.79 0.91 0.82 0.78 0.74 0.80 0.76 0.79 0.71 
+Data version: 110
+T = 100, T0 = 18, D = 1000, W = 1000
+16 subjects were reconstructed.
+1 2 3 4 5 7 8 9 10 11 12 13 14 15 16 17 
+0.85 0.61 0.64 0.69 0.70 0.64 0.64 0.79 0.59 0.54 0.66 0.61 0.69 0.92 0.60 0.68 
+Data version: 111
+T = 200, T0 = 18, D = 1000, W = 1000
+17 subjects were reconstructed.
+0 1 2 3 4 5 7 8 9 10 11 12 13 14 15 16 17 
+0.67 0.77 0.68 0.72 0.69 0.97 0.65 0.66 0.70 0.76 0.90 0.79 0.93 0.60 0.64 0.80 0.55 
+Data version: 112
+T = 300, T0 = 18, D = 1000, W = 1000
+16 subjects were reconstructed.
+0 1 2 3 4 5 7 8 9 10 11 12 13 14 15 17 
+0.70 0.67 0.65 0.76 0.72 0.84 0.84 0.68 0.66 0.79 0.73 0.73 0.91 0.75 0.66 0.66 
+Data version: 113
+T = 400, T0 = 18, D = 1000, W = 1000
+17 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 10 12 13 14 15 16 17 
+0.73 0.74 0.75 0.86 0.77 0.72 0.91 0.70 0.71 0.85 0.92 0.76 0.87 0.74 0.73 0.74 0.70 
+Data version: 114
+T = 100, T0 = 22, D = 1000, W = 1000
+22 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 
+0.64 0.59 0.54 0.49 0.63 0.74 0.69 0.60 0.67 0.64 0.93 0.80 0.68 0.77 0.61 0.94 0.59 0.55 0.63 0.53 0.55 0.64 
+Data version: 117
+T = 400, T0 = 22, D = 1000, W = 1000
+22 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 
+0.76 0.72 0.73 0.75 0.73 0.74 0.72 0.76 0.77 0.77 0.76 0.79 0.76 0.75 0.75 0.75 0.73 0.76 0.72 0.75 0.73 0.72 
+Data version: 116
+T = 300, T0 = 22, D = 1000, W = 1000
+22 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 
+0.73 0.93 0.69 0.71 0.81 0.57 0.60 0.75 0.75 0.62 0.69 0.62 0.69 0.62 0.65 0.90 0.63 0.64 0.96 0.66 0.62 0.67 
+Data version: 115
+T = 200, T0 = 22, D = 1000, W = 1000
+21 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 18 19 20 21 
+0.61 0.66 0.93 0.85 0.76 0.57 0.63 0.66 0.69 0.60 0.64 0.66 0.81 0.60 0.58 0.67 0.63 0.77 0.62 0.55 0.64 
+Data version: 119
+T = 200, T0 = 26, D = 1000, W = 1000
+26 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 
+0.69 0.70 0.68 0.70 0.71 0.68 0.70 0.68 0.72 0.69 0.70 0.70 0.68 0.71 0.71 0.72 0.72 0.71 0.68 0.70 0.71 0.66 0.68 0.68 0.72 0.66 
+Data version: 120
+T = 300, T0 = 26, D = 1000, W = 1000
+26 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 
+0.69 0.71 0.67 0.73 0.67 0.70 0.70 0.70 0.71 0.69 0.69 0.70 0.72 0.70 0.71 0.70 0.68 0.71 0.67 0.70 0.71 0.72 0.70 0.68 0.69 0.67 
+Data version: 121
+T = 400, T0 = 26, D = 1000, W = 1000
+26 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 
+0.71 0.70 0.72 0.68 0.70 0.71 0.71 0.68 0.71 0.69 0.71 0.68 0.71 0.70 0.69 0.73 0.70 0.67 0.72 0.70 0.69 0.70 0.69 0.66 0.71 0.69 
+Data version: 118
+T = 100, T0 = 26, D = 1000, W = 1000
+26 subjects were reconstructed.
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 
+0.49 0.50 0.54 0.67 0.56 0.73 0.52 0.61 0.54 0.56 0.66 0.73 0.69 0.52 0.73 0.45 0.56 0.54 0.54 0.74 0.45 0.60 0.93 0.57 0.55 0.59 
