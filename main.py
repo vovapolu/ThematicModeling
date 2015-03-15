@@ -8,6 +8,10 @@ from scipy import stats
 import matplotlib.pyplot as plot
 import numpy.random.mtrand as mr
 import os.path
+import os
+import multiprocessing
+import sys
+from collections import deque
 
 def normalized(a):
     v = sum(a)
@@ -175,16 +179,16 @@ def EM(ndw, wCount, tCount, alpha, beta):
 
     return phi, theta
 
-def generateData(tCount, dCount, wCount):
+def generateData(tCount, dCount, wCount, sparsityFactor):
     start = time.clock()
     print "Generating theta..."
-    theta = genTheta(tCount, dCount, 0.01)
+    theta = genTheta(tCount, dCount, sparsityFactor)
     finish = time.clock()
     print "Generated in", "%.2f" % (finish - start), "seconds.", "\n"
 
     start = time.clock()
     print "Generating phi..."
-    phi = genPhi(wCount, tCount, 0.01)
+    phi = genPhi(wCount, tCount, sparsityFactor)
     finish = time.clock()
     print "Generated in", "%.2f" % (finish - start), "seconds.", "\n"
 
@@ -248,7 +252,7 @@ def check(tCount, dCount, wCount):
     finish = time.clock()
     print "Calculated in ", "%.2f" % (finish - start), "seconds.", "\n"
 
-def writePlotData(phi, phi0, theta, theta0, subjects, alpha, beta):
+def writePlotData(phi, phi0, theta, theta0, subjects, alpha, beta, id):
     pfilename = "plot.txt"
     if (not os.path.exists(pfilename)):
         with file(pfilename, "w") as pfile:
@@ -263,16 +267,21 @@ def writePlotData(phi, phi0, theta, theta0, subjects, alpha, beta):
     t0 = len(theta0)
     pfile = file(pfilename, "a")
     pfile.write("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}\n".format(
-        getVersion(), rnum, minDist, maxDist, avgDist, sparsity, alpha, beta, t, t0
+        id, rnum, minDist, maxDist, avgDist, sparsity, alpha, beta, t, t0
     ))
     pfile.close()
 
 
-def checkMoreSubjects(tCount, dCount, wCount, tCountEM, isGeneratingData, alphaFactor, betaFactor):
+def checkMoreSubjects(tCount, dCount, wCount, tCountEM, isGeneratingData, isSaveData,
+                      alphaFactor, betaFactor, sparsityFactor, id):
+    if not os.path.exists("log"):
+        os.makedirs("log")
+    sys.stdout = open("log/log_{0}.txt".format(id), "w")
     if isGeneratingData:
         incrementVersion()
-        phi, theta, ndw = generateData(tCount, dCount, wCount)
-        writeDataToFile("data", phi, theta, ndw)
+        phi, theta, ndw = generateData(tCount, dCount, wCount, sparsityFactor)
+        if (isSaveData):
+            writeDataToFile("data", phi, theta, ndw)
     else:
         phi, theta, ndw = loadFromFile("data")
 
@@ -283,36 +292,35 @@ def checkMoreSubjects(tCount, dCount, wCount, tCountEM, isGeneratingData, alphaF
     start = time.clock()
     print "EM-Algorithm..."
     phi0, theta0 = EM(ndw, wCount, tCountEM, alpha, beta)
-    np.savetxt("data_phi0.txt", phi0)
-    np.savetxt("data_theta0.txt", theta0)
+    if (isSaveData):
+        np.savetxt("data_phi0.txt", phi0)
+        np.savetxt("data_theta0.txt", theta0)
     finish = time.clock()
     print "Total time:", "%.2f" % (finish - start), "seconds.", "\n"
 
     res = compareMatrices(phi0, theta0, phi, theta)
     subjects = reconstructSubjects(phi0, theta0, phi, theta, res)
     with file("results.txt", "a") as afile:
-        afile.write("Data version: {0}\n".format(getVersion()))
+        afile.write("Data version: {0}\n".format(id))
         afile.write("T = {0}, T0 = {1}, D = {2}, W = {3}\n".format(tCount, tCountEM, dCount, wCount))
         afile.write("{0} subjects were reconstructed.\n".format(len(subjects[0])))
         np.savetxt(afile, subjects[0], fmt="%i", newline=" ")
         afile.write("\n")
         np.savetxt(afile, subjects[1], fmt="%.2f", newline=" ")
         afile.write("\n")
-    writePlotData(phi, phi0, theta, theta0, subjects, alphaFactor, betaFactor)
+    writePlotData(phi, phi0, theta, theta0, subjects, alphaFactor, betaFactor, id)
 
-for a in np.linspace(-0.1, 0.1, num=20):
-    checkMoreSubjects(100, 1000, 1000, 10, True, a, 0)
-    checkMoreSubjects(100, 1000, 1000, 10, False, a, 0)
-    checkMoreSubjects(100, 1000, 1000, 10, False, a, 0)
 
-for b in np.linspace(-0.1, 0.1, num=20):
-    checkMoreSubjects(100, 1000, 1000, 10, True, 0, b)
-    checkMoreSubjects(100, 1000, 1000, 10, False, 0, b)
-    checkMoreSubjects(100, 1000, 1000, 10, False, 0, b)
+p = multiprocessing.Pool(processes=3)
+processes = []
+id = 0
+for a in np.linspace(-0.2, 0.2, num=40):
+    id += 1
+    processes.append(p.apply_async(checkMoreSubjects, args=(100, 1000, 1000, 10, True, False, a, a, 0.01, id)))
 
-for a in np.linspace(-0.05, 0.05, num=10):
-    for b in np.linspace(-0.05, 0.05, num=10):
-        checkMoreSubjects(100, 1000, 1000, 10, True, a, b)
-        checkMoreSubjects(100, 1000, 1000, 10, False, a, b)
-        checkMoreSubjects(100, 1000, 1000, 10, False, a, b)
+for d in np.linspace(0, 1.5, num=20):
+    id += 1
+    processes.append(p.apply_async(checkMoreSubjects, args=(100, 1000, 1000, 10, True, False, 0, 0, d, id)))
 
+for p in processes:
+    p.get()
