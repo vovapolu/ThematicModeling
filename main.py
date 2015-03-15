@@ -7,6 +7,7 @@ from scipy.spatial.distance import euclidean
 from scipy import stats
 import matplotlib.pyplot as plot
 import numpy.random.mtrand as mr
+import os.path
 
 def normalized(a):
     v = sum(a)
@@ -174,7 +175,6 @@ def EM(ndw, wCount, tCount, alpha, beta):
 
     return phi, theta
 
-
 def generateData(tCount, dCount, wCount):
     start = time.clock()
     print "Generating theta..."
@@ -248,7 +248,27 @@ def check(tCount, dCount, wCount):
     finish = time.clock()
     print "Calculated in ", "%.2f" % (finish - start), "seconds.", "\n"
 
-def checkMoreSubjects(tCount, dCount, wCount, tCountEM, isGeneratingData):
+def writePlotData(phi, phi0, theta, theta0, subjects, alpha, beta):
+    pfilename = "plot.txt"
+    if (not os.path.exists(pfilename)):
+        with file(pfilename, "w") as pfile:
+            pfile.write("#Id RNum MinDist MaxDist AvgDist Sparsity RegA RegB T T0\n")
+
+    rnum = len(subjects[0])
+    minDist = min(subjects[1])
+    maxDist = max(subjects[1])
+    avgDist = np.average(subjects[1])
+    sparsity = float(np.count_nonzero(phi) + np.count_nonzero(theta)) / (phi.size + theta.size)
+    t = len(theta)
+    t0 = len(theta0)
+    pfile = file(pfilename, "a")
+    pfile.write("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}\n".format(
+        getVersion(), rnum, minDist, maxDist, avgDist, sparsity, alpha, beta, t, t0
+    ))
+    pfile.close()
+
+
+def checkMoreSubjects(tCount, dCount, wCount, tCountEM, isGeneratingData, alphaFactor, betaFactor):
     if isGeneratingData:
         incrementVersion()
         phi, theta, ndw = generateData(tCount, dCount, wCount)
@@ -256,8 +276,8 @@ def checkMoreSubjects(tCount, dCount, wCount, tCountEM, isGeneratingData):
     else:
         phi, theta, ndw = loadFromFile("data")
 
-    alpha = [-0.02] * wCount
-    beta = [0] * tCount
+    alpha = [alphaFactor] * wCount
+    beta = [betaFactor] * tCount
     alpha[-1] = 0.00
     beta[-1] = 0.00
     start = time.clock()
@@ -274,11 +294,25 @@ def checkMoreSubjects(tCount, dCount, wCount, tCountEM, isGeneratingData):
         afile.write("Data version: {0}\n".format(getVersion()))
         afile.write("T = {0}, T0 = {1}, D = {2}, W = {3}\n".format(tCount, tCountEM, dCount, wCount))
         afile.write("{0} subjects were reconstructed.\n".format(len(subjects[0])))
-        afile.write("{0}\n".format(subjects[0]))
-        afile.write("{0}\n".format(subjects[1]))
+        np.savetxt(afile, subjects[0], fmt="%i", newline=" ")
+        afile.write("\n")
+        np.savetxt(afile, subjects[1], fmt="%.2f", newline=" ")
+        afile.write("\n")
+    writePlotData(phi, phi0, theta, theta0, subjects, alphaFactor, betaFactor)
 
-#check(50, 250, 1000)
-#check(10, 10, 10)
-#checkMoreSubjects(100, 200, 1000, 20, True)
-for i in xrange(10):
-    checkMoreSubjects(100, 1000, 1000, 10, True)
+for a in np.linspace(-0.1, 0.1, num=20):
+    checkMoreSubjects(100, 1000, 1000, 10, True, a, 0)
+    checkMoreSubjects(100, 1000, 1000, 10, False, a, 0)
+    checkMoreSubjects(100, 1000, 1000, 10, False, a, 0)
+
+for b in np.linspace(-0.1, 0.1, num=20):
+    checkMoreSubjects(100, 1000, 1000, 10, True, 0, b)
+    checkMoreSubjects(100, 1000, 1000, 10, False, 0, b)
+    checkMoreSubjects(100, 1000, 1000, 10, False, 0, b)
+
+for a in np.linspace(-0.05, 0.05, num=10):
+    for b in np.linspace(-0.05, 0.05, num=10):
+        checkMoreSubjects(100, 1000, 1000, 10, True, a, b)
+        checkMoreSubjects(100, 1000, 1000, 10, False, a, b)
+        checkMoreSubjects(100, 1000, 1000, 10, False, a, b)
+
