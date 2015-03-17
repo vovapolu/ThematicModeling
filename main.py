@@ -278,7 +278,6 @@ def checkMoreSubjects(tCount, dCount, wCount, tCountEM, isGeneratingData, isSave
         os.makedirs("log")
     sys.stdout = open("log/log_{0}.txt".format(id), "w")
     if isGeneratingData:
-        incrementVersion()
         phi, theta, ndw = generateData(tCount, dCount, wCount, sparsityFactor)
         if (isSaveData):
             writeDataToFile("data", phi, theta, ndw)
@@ -313,7 +312,7 @@ def checkMoreSubjects(tCount, dCount, wCount, tCountEM, isGeneratingData, isSave
 
 p = multiprocessing.Pool(processes=3)
 processes = []
-id = 101
+id = 200
 #for a in np.linspace(-0.2, 0.2, num=40):
 #    id += 1
 #    processes.append(p.apply_async(checkMoreSubjects, args=(100, 1000, 1000, 10, True, False, a, a, 0.01, id)))
@@ -333,10 +332,37 @@ id = 101
 #    id += 1
 #    processes.append(p.apply_async(checkMoreSubjects, args=(100, 1000, 1000, 10, True, False, 0, 0, d, id)))
 
-for t0 in xrange(10, 30, 4):
-    for t in xrange(100, 500, 100):
+for t0 in xrange(5, 50, 4):
+    for t in xrange(100, 1001, 100):
     	id += 1
     	processes.append(p.apply_async(checkMoreSubjects, args=(t, 1000, 1000, t0, True, False, -0.02, -0.02, 0.01, id)))
 
 for p in processes:
-    p.get()
+    try:
+        p.get()
+    except KeyboardInterrupt:
+        raise
+    except Exception as e:
+        print e
+
+processes = []
+
+id += 1
+checkMoreSubjects(100, 1000, 1000, 10, True, True, 0.01, 0.01, 0.01, id)
+
+for a in np.linspace(-0.4, 0.4, num=30):
+    id += 1
+    processes.append(p.apply_async(checkMoreSubjects, args=(100, 1000, 1000, 10, False, False, a, a, 0.05, id)))
+
+for d in np.linspace(0.001, 0.5, num=30):
+    id += 1
+    processes.append(p.apply_async(checkMoreSubjects, args=(100, 1000, 1000, 10, True, False, 0, 0, d, id)))
+
+for p in processes:
+    try:
+        p.get()
+    except KeyboardInterrupt:
+        raise
+    except Exception as e:
+        print e
+        
