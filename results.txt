@@ -1,9 +1,3 @@
-Data version: 1
-T = 100, T0 = 10, D = 1000, W = 1000
-10 subjects were reconstructed.
-[0 1 2 3 4 5 6 7 8 9]
-[ 0.79181308  0.81853365  0.82375407  0.73420297  0.89468929  0.85537279
-  0.84776722  0.80890261  0.86584828  0.88635603]
 Data version: 4
 T = 100, T0 = 10, D = 1000, W = 1000
 10 subjects were reconstructed.
