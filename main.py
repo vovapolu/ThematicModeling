@@ -312,7 +312,7 @@ def checkMoreSubjects(tCount, dCount, wCount, tCountEM, isGeneratingData, isSave
 
 p = multiprocessing.Pool(processes=3)
 processes = []
-id = 200
+id = 300
 #for a in np.linspace(-0.2, 0.2, num=40):
 #    id += 1
 #    processes.append(p.apply_async(checkMoreSubjects, args=(100, 1000, 1000, 10, True, False, a, a, 0.01, id)))
@@ -332,20 +332,20 @@ id = 200
 #    id += 1
 #    processes.append(p.apply_async(checkMoreSubjects, args=(100, 1000, 1000, 10, True, False, 0, 0, d, id)))
 
-for t0 in xrange(5, 50, 4):
-    for t in xrange(100, 1001, 100):
-    	id += 1
-    	processes.append(p.apply_async(checkMoreSubjects, args=(t, 1000, 1000, t0, True, False, -0.02, -0.02, 0.01, id)))
+#for t0 in xrange(5, 50, 4):
+#    for t in xrange(100, 1001, 100):
+#        id += 1
+#        processes.append(p.apply_async(checkMoreSubjects, args=(t, 1000, 1000, t0, True, False, -0.02, -0.02, 0.01, id)))
 
-for p in processes:
-    try:
-        p.get()
-    except KeyboardInterrupt:
-        raise
-    except Exception as e:
-        print e
+#for p in processes:
+#    try:
+#        p.get()
+#    except KeyboardInterrupt:
+#        raise
+#    except Exception as e:
+#        print e
 
-processes = []
+#processes = []
 
 id += 1
 checkMoreSubjects(100, 1000, 1000, 10, True, True, 0.01, 0.01, 0.01, id)
