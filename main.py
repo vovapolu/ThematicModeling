@@ -251,7 +251,7 @@ def reconstructSubjects(phi0, theta0, phi, theta, res):
     print np.arange(len(allDiffs))[allDiffs < 1]
     print allDiffs
 
-    return (np.arange(len(allDiffs))[allDiffs < 1], allDiffs)
+    return (np.arange(len(allDiffs))[allDiffs < 1], diffsPhi * expectedValPhi + diffsTheta * expectedValTheta)
 
 
 def check(tCount, dCount, wCount):
@@ -300,23 +300,25 @@ def writeSpecialPlotData(phi, phi0, theta, theta0, subjects, id):
     t = len(theta)
     t0 = len(theta0)
     for i in xrange(t):
+	print "T = ", i
         mindist = sys.float_info.max
         minind = -1
         for j in xrange(t0):
-            dist = hellinger2(theta[i], theta0[j]) + hellinger2(phi[:, i], phi0[:, j])
+	    dist = hellinger2(theta[i], theta0[j]) + hellinger2(phi[:, i], phi0[:, j])
+	    print j, ":",dist, 
             if dist < mindist:
                 mindist = dist
                 minind = j
 
         if (minind != -1):
-            mindist = sys.float_info.max
+            mindist0 = sys.float_info.max
             minind0 = -1
             for j in xrange(t):
                 dist = hellinger2(theta[j], theta0[minind]) + hellinger2(phi[:, j], phi0[:, minind])
-            if dist < mindist:
-                mindist = dist
-                minind0 = j
-            isMutual = int(minind0 == i)
+            	if dist < mindist0:
+                    mindist0 = dist
+                    minind0 = j
+	    isMutual = int(minind0 == i)
             splotFile.write("{0}\t{1}\t{2}\t{3}\t{4}\n".format(id, i, mindist, minind, isMutual))
 
     splotFile.close()
@@ -324,6 +326,7 @@ def writeSpecialPlotData(phi, phi0, theta, theta0, subjects, id):
 
 def checkMoreSubjects(tCount, dCount, wCount, tCountEM, isGeneratingData, isSaveData,
                       alphaFactor, betaFactor, sparsityFactor, id):
+    np.random.seed(id)
     if not os.path.exists("log"):
         os.makedirs("log")
     sys.stdout = open("log/log_{0}.txt".format(id), "w")
@@ -364,9 +367,9 @@ def checkMoreSubjects(tCount, dCount, wCount, tCountEM, isGeneratingData, isSave
 p = multiprocessing.Pool(processes=3)
 processes = []
 id = int(file("plot.txt").readlines()[-1].split()[0])
-w = 100
-d = 100
-t = 50
+w = 1000
+d = 1000
+t = 100
 t0 = 10
 
 
@@ -421,4 +424,4 @@ def runProcesses():
     processes = []
 
 
-genSpecialData(1)
+genSpecialData(30)
