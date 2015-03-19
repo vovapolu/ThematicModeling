@@ -13,9 +13,11 @@ import multiprocessing
 import sys
 from collections import deque
 
+
 def normalized(a):
     v = sum(a)
     return a / v
+
 
 def pround(a):
     frac = a - np.floor(a)
@@ -24,7 +26,9 @@ def pround(a):
     else:
         return np.ceil(a)
 
+
 proundVec = np.vectorize(pround)
+
 
 def positiveSlice(a):
     if (a < 0):
@@ -32,11 +36,14 @@ def positiveSlice(a):
     else:
         return a
 
+
 positiveSliceVec = np.vectorize(positiveSlice)
+
 
 def cutZeroes(m):
     zeroEps = 0.00001
     m[np.abs(m) < zeroEps] = 0
+
 
 def getVersion():
     try:
@@ -46,11 +53,13 @@ def getVersion():
         ver = 0
     return ver
 
+
 def incrementVersion():
     ver = getVersion()
     with file("version.txt", "w") as vFile:
         vFile.write("{0}".format(ver + 1))
     return ver + 1
+
 
 def loadFromFile(filename):
     phi = np.loadtxt(filename + "_phi.txt")
@@ -65,6 +74,7 @@ def loadFromFile(filename):
             ndw.append(newSlice)
     return (phi, theta, ndw)
 
+
 def writeDataToFile(filename, phi, theta, ndw):
     np.savetxt(filename + "_phi.txt", phi)
     np.savetxt(filename + "_theta.txt", theta)
@@ -74,13 +84,16 @@ def writeDataToFile(filename, phi, theta, ndw):
             outfile.write('{0} {1}\n'.format(len(ndwSlice), len(ndwSlice[0])))
             np.savetxt(outfile, ndwSlice, fmt='%i')
 
+
 def genPhi(wCount, tCount, dirichletFactor):
     phi = np.empty((wCount, tCount))
-    phi[:, -1] = np.fromfunction(lambda i: 1.0 / (i + 1), (wCount, ), dtype=float) * (0.8 + np.random.random((wCount, )) * 0.4)
-    phi[:,:-1] = mr.dirichlet((-phi[:, -1] + phi[0, -1]) * dirichletFactor, tCount - 1).transpose()
+    phi[:, -1] = np.fromfunction(lambda i: 1.0 / (i + 1), (wCount, ), dtype=float) * (
+        0.8 + np.random.random((wCount, )) * 0.4)
+    phi[:, :-1] = mr.dirichlet((-phi[:, -1] + phi[0, -1]) * dirichletFactor, tCount - 1).transpose()
     cutZeroes(phi)
     phi = np.apply_along_axis(normalized, 0, phi)
     return phi
+
 
 def genTheta(tCount, dCount, dirichletFactor):
     theta = np.empty((tCount, dCount))
@@ -89,6 +102,7 @@ def genTheta(tCount, dCount, dirichletFactor):
     cutZeroes(theta)
     theta = np.apply_along_axis(normalized, 0, theta)
     return theta
+
 
 def genCollection(phi, theta):
     tCount = len(theta)
@@ -103,14 +117,18 @@ def genCollection(phi, theta):
         ndw.append(columnD[np.abs(columnD1) > 0, :])
     return ndw
 
+
 def hellinger2(p, q):
     return euclidean(np.sqrt(p), np.sqrt(q)) / np.sqrt(2)
+
 
 def hellinger2Matrix(a, b):
     return np.average([hellinger2(a[:, i], b[:, i]) for i in xrange(len(a[0]))])
 
+
 def norm(phi, theta):
     return np.linalg.norm(phi) / np.product(phi.shape) + np.linalg.norm(theta) / np.product(theta.shape)
+
 
 def compareMatrices(phi0, theta0, phi, theta):
     costMatrix = np.empty((len(theta0), len(theta)))
@@ -123,6 +141,7 @@ def compareMatrices(phi0, theta0, phi, theta):
     finish = time.clock()
     print "Total time:", "%.2f" % (finish - start), "seconds.", "\n"
     return res
+
 
 def EM(ndw, wCount, tCount, alpha, beta):
     dCount = len(ndw)
@@ -147,7 +166,7 @@ def EM(ndw, wCount, tCount, alpha, beta):
     isConverged = False
     step = 0
 
-    while not isConverged:
+    for i in xrange(50):
         start = time.clock()
         thetaOld = theta.copy()
         phiOld = phi.copy()
@@ -157,7 +176,7 @@ def EM(ndw, wCount, tCount, alpha, beta):
         for d in xrange(dCount):
             for wInd in xrange(len(ndw[d])):
                 w, wVal = (ndw[d][wInd][0], ndw[d][wInd][1])
-                delta = phi[w] * theta[: ,d]
+                delta = phi[w] * theta[:, d]
                 delta = delta * wVal / sum(delta)
                 nwt[w] += delta
                 ndt[d] += delta
@@ -179,6 +198,7 @@ def EM(ndw, wCount, tCount, alpha, beta):
 
     return phi, theta
 
+
 def generateData(tCount, dCount, wCount, sparsityFactor):
     start = time.clock()
     print "Generating theta..."
@@ -199,6 +219,7 @@ def generateData(tCount, dCount, wCount, sparsityFactor):
     print "Generated in", "%.2f" % (finish - start), "seconds.", "\n"
     return (phi, theta, ndw)
 
+
 def constuctCorrectMatrices(phi0, theta0, res):
     correctPhi0 = np.empty(phi0.shape)
     correctTheta0 = np.empty(theta0.shape)
@@ -209,6 +230,7 @@ def constuctCorrectMatrices(phi0, theta0, res):
     correctProduct = correctPhi0.dot(correctTheta0)
     return (correctPhi0, correctTheta0, correctProduct)
 
+
 def calculateHellingerDists(correctPhi0, correctTheta0, correctProduct, phi, theta, product):
     distPhi = hellinger2Matrix(correctPhi0, phi)
     distTheta = hellinger2Matrix(correctTheta0, theta)
@@ -217,6 +239,7 @@ def calculateHellingerDists(correctPhi0, correctTheta0, correctProduct, phi, the
     print "Hellinger distance for theta:", distTheta
     print "Hellinger distance for product:", distProduct
     return (distPhi, distTheta, distProduct)
+
 
 def reconstructSubjects(phi0, theta0, phi, theta, res):
     expectedValTheta = np.sqrt(len(theta0[0])) / (np.sqrt(2) * 3)
@@ -228,7 +251,8 @@ def reconstructSubjects(phi0, theta0, phi, theta, res):
     print np.arange(len(allDiffs))[allDiffs < 1]
     print allDiffs
 
-    return (np.arange(len(allDiffs))[allDiffs < 1], allDiffs[allDiffs < 1])
+    return (np.arange(len(allDiffs))[allDiffs < 1], allDiffs)
+
 
 def check(tCount, dCount, wCount):
     phi, theta, ndw = generateData(tCount, dCount, wCount)
@@ -252,11 +276,9 @@ def check(tCount, dCount, wCount):
     finish = time.clock()
     print "Calculated in ", "%.2f" % (finish - start), "seconds.", "\n"
 
+
 def writePlotData(phi, phi0, theta, theta0, subjects, alpha, beta, id):
     pfilename = "plot.txt"
-    if (not os.path.exists(pfilename)):
-        with file(pfilename, "w") as pfile:
-            pfile.write("#Id RNum MinDist MaxDist AvgDist Sparsity RegA RegB T T0\n")
 
     rnum = len(subjects[0])
     minDist = min(subjects[1])
@@ -270,6 +292,34 @@ def writePlotData(phi, phi0, theta, theta0, subjects, alpha, beta, id):
         id, rnum, minDist, maxDist, avgDist, sparsity, alpha, beta, t, t0
     ))
     pfile.close()
+
+
+def writeSpecialPlotData(phi, phi0, theta, theta0, subjects, id):
+    splotFile = file("splot.txt", "a")
+
+    t = len(theta)
+    t0 = len(theta0)
+    for i in xrange(t):
+        mindist = sys.float_info.max
+        minind = -1
+        for j in xrange(t0):
+            dist = hellinger2(theta[i], theta0[j]) + hellinger2(phi[:, i], phi0[:, j])
+            if dist < mindist:
+                mindist = dist
+                minind = j
+
+        if (minind != -1):
+            mindist = sys.float_info.max
+            minind0 = -1
+            for j in xrange(t):
+                dist = hellinger2(theta[j], theta0[minind]) + hellinger2(phi[:, j], phi0[:, minind])
+            if dist < mindist:
+                mindist = dist
+                minind0 = j
+            isMutual = int(minind0 == i)
+            splotFile.write("{0}\t{1}\t{2}\t{3}\t{4}\n".format(id, i, mindist, minind, isMutual))
+
+    splotFile.close()
 
 
 def checkMoreSubjects(tCount, dCount, wCount, tCountEM, isGeneratingData, isSaveData,
@@ -308,61 +358,67 @@ def checkMoreSubjects(tCount, dCount, wCount, tCountEM, isGeneratingData, isSave
         np.savetxt(afile, subjects[1], fmt="%.2f", newline=" ")
         afile.write("\n")
     writePlotData(phi, phi0, theta, theta0, subjects, alphaFactor, betaFactor, id)
+    writeSpecialPlotData(phi, phi0, theta, theta0, subjects, id)
 
 
 p = multiprocessing.Pool(processes=3)
 processes = []
-id = 300
-#for a in np.linspace(-0.2, 0.2, num=40):
-#    id += 1
-#    processes.append(p.apply_async(checkMoreSubjects, args=(100, 1000, 1000, 10, True, False, a, a, 0.01, id)))
+id = int(file("plot.txt").readlines()[-1].split()[0])
+w = 100
+d = 100
+t = 50
+t0 = 10
 
-#for d in np.linspace(0.001, 1.5, num=20):
-#    id += 1
-#    processes.append(p.apply_async(checkMoreSubjects, args=(100, 1000, 1000, 10, True, False, 0, 0, d, id)))
 
-#id += 1
-#checkMoreSubjects(100, 1000, 1000, 10, True, True, 0.01, 0.01, 0.01, id)
+def genAlphaData(minA, maxA, pointsNum, isGenMatrices):
+    for a in np.linspace(minA, maxA, num=pointsNum):
+        id += 1
+        processes.append(p.apply_async(checkMoreSubjects, args=(w, d, t, t0, isGenMatrices, False, a, a, 0.01, id)))
 
-#for a in np.linspace(-0.3, 0.3, num=20):
-#    id += 1
-#    processes.append(p.apply_async(checkMoreSubjects, args=(100, 1000, 1000, 10, False, False, a, a, 0.05, id)))
+    runProcesses()
 
-#for d in np.linspace(0.001, 0.2, num=20):
-#    id += 1
-#    processes.append(p.apply_async(checkMoreSubjects, args=(100, 1000, 1000, 10, True, False, 0, 0, d, id)))
 
-#for t0 in xrange(5, 50, 4):
-#    for t in xrange(100, 1001, 100):
-#        id += 1
-#        processes.append(p.apply_async(checkMoreSubjects, args=(t, 1000, 1000, t0, True, False, -0.02, -0.02, 0.01, id)))
+def genSparcityData(minD, maxD, pointsNum, isGenMatrices):
+    for d in np.linspace(minD, maxD, num=pointsNum):
+        id += 1
+        processes.append(
+            p.apply_async(checkMoreSubjects, args=(w, d, t, t0, isGenMatrices, False, -0.02, -0.02, d, id)))
 
-#for p in processes:
-#    try:
-#        p.get()
-#    except KeyboardInterrupt:
-#        raise
-#    except Exception as e:
-#        print e
+    runProcesses()
 
-#processes = []
 
-id += 1
-checkMoreSubjects(100, 1000, 1000, 10, True, True, 0.01, 0.01, 0.01, id)
+def genTData(minT, maxT, stepT, minT0, maxT0, stepT0, isGenMatrices):
+    for t0 in xrange(minT0, maxT0, stepT0):
+        for t in xrange(minT, maxT, stepT):
+            id += 1
+            processes.append(
+                p.apply_async(checkMoreSubjects, args=(t, w, d, t0, isGenMatrices, False, -0.02, -0.02, 0.01, id)))
 
-for a in np.linspace(-0.4, 0.4, num=30):
+    runProcesses()
+
+
+def genSpecialData(pointsNum):
+    global id
     id += 1
-    processes.append(p.apply_async(checkMoreSubjects, args=(100, 1000, 1000, 10, False, False, a, a, 0.05, id)))
+    checkMoreSubjects(t, w, d, t0, True, True, -0.02, -0.02, 0.01, id)
+    for i in xrange(pointsNum):
+        id += 1
+        processes.append(p.apply_async(checkMoreSubjects, args=(t, w, d, t0, False, False, -0.02, -0.02, 0.01, id)))
 
-for d in np.linspace(0.001, 0.5, num=30):
-    id += 1
-    processes.append(p.apply_async(checkMoreSubjects, args=(100, 1000, 1000, 10, True, False, 0, 0, d, id)))
+    runProcesses()
 
-for p in processes:
-    try:
-        p.get()
-    except KeyboardInterrupt:
-        raise
-    except Exception as e:
-        print e
-        
+
+def runProcesses():
+    global processes
+    for p in processes:
+        try:
+            p.get()
+        except KeyboardInterrupt:
+            raise
+        except Exception as e:
+            print e
+
+    processes = []
+
+
+genSpecialData(1)
