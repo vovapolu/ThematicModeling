@@ -8,7 +8,7 @@ import os.path
 
 
 def normalized(v):
-    s = np.sum(v)
+    s = float(np.sum(v))
     if s != 0:
         return v / s
 
@@ -37,78 +37,6 @@ def cut_zeroes(m):
     m[np.abs(m) < zero_eps] = 0
 
 
-def get_version():
-    try:
-        with file("version.txt", "r") as vFile:
-            ver = int(vFile.readline())
-    except IOError:
-        ver = 0
-    return ver
-
-
-def increment_version():
-    ver = get_version()
-    with file("version.txt", "w") as vFile:
-        vFile.write("{0}".format(ver + 1))
-    return ver + 1
-
-
-def load_from_file(filename):
-    phi = np.loadtxt(filename + "_phi.txt")
-    theta = np.loadtxt(filename + "_theta.txt")
-    with file(filename + "_ndw.txt", "r") as infile:
-        size = int(infile.readline())
-        ndw = []
-        for i in xrange(size):
-            slice_shape = tuple(map(int, infile.readline().split()))
-            lines = [infile.readline() for i in xrange(slice_shape[0])]
-            new_slice = np.array(map(lambda s: map(int, s.split()), lines))
-            ndw.append(new_slice)
-    return phi, theta, ndw
-
-
-def write_data_to_file(filename, phi, theta, ndw):
-    np.savetxt(filename + "_phi.txt", phi)
-    np.savetxt(filename + "_theta.txt", theta)
-    with file(filename + "_ndw.txt", "w") as outfile:
-        outfile.write('{0}\n'.format(len(ndw)))
-        for ndwSlice in ndw:
-            outfile.write('{0} {1}\n'.format(len(ndwSlice), len(ndwSlice[0])))
-            np.savetxt(outfile, ndwSlice, fmt='%i')
-
-
-def gen_phi(wcount, tcount, dirichlet_factor):
-    phi = np.empty((wcount, tcount))
-    phi[:, -1] = np.fromfunction(lambda i: 1.0 / (i + 1), (wcount, ), dtype=float) * (
-        0.8 + np.random.random((wcount, )) * 0.4)
-    phi[:, :-1] = mr.dirichlet(1 / phi[:, -1] / wcount * dirichlet_factor, tcount - 1).transpose()
-    cut_zeroes(phi)
-    phi = np.apply_along_axis(normalized, 0, phi)
-    return phi
-
-
-def gen_theta(tcount, dcount, dirichlet_factor):
-    theta = np.empty((tcount, dcount))
-    theta[-1] = np.random.random((dcount, )) * 3
-    theta[:-1, :] = mr.dirichlet([dirichlet_factor] * (tcount - 1), dcount).transpose()
-    cut_zeroes(theta)
-    theta = np.apply_along_axis(normalized, 0, theta)
-    return theta
-
-
-def gen_collection(phi, theta):
-    tcount = len(theta)
-    dcount = len(theta[0])
-    nd = mr.randint(600, 1000, dcount)
-    pwd = phi.dot(theta)
-    ndw = []
-    for d in xrange(dcount):
-        columnd = pround(pwd[:, d] * nd[d])
-        columnd_tup = np.dstack((np.arange(len(columnd)), columnd))[0]
-        ndw.append(columnd_tup[columnd > 0, :])
-    return ndw
-
-
 def hellinger2(p, q):
     return euclidean(np.sqrt(p), np.sqrt(q)) / np.sqrt(2)
 
@@ -121,125 +49,159 @@ def theme_dist(phi0, theta0, phi, theta, i, j):
     return hellinger2(np.append(theta0[i], phi0[:, i]), np.append(theta[j], phi[:, j])) ** 2 / 2
 
 
-def EM_algorithm(ndw, wcount, tcount, alpha, beta):
-    dcount = len(ndw)
-    print "W =", wcount
-    print "T =", tcount
-    print "D =", dcount
-    theta = np.random.random((tcount, dcount))
-    phi = np.random.random((wcount, tcount))
-    theta = normalized_matrix_by_columns(theta)
-    phi = normalized_matrix_by_columns(phi)
-    nwt = np.empty((wcount, tcount))
-    ndt = np.empty((dcount, tcount))
-    nd = np.empty(dcount)
-    nt = np.empty(tcount)
-    for d in xrange(dcount):
-        nd[d] = ndw[d][:, 1].sum()
+class Algorithm:
+    def __init__(self):
+        self.timers = {}
 
-    step = 0
+    def out(self, *strs):
+        print "[" + self.__class__.__name__ + "]", " ".join([str(p) for p in strs])
 
-    for i in xrange(50):
-        start = time.clock()
-        nwt.fill(0)
-        ndt.fill(0)
+    def start_timer(self, timer_name):
+        self.timers[timer_name] = time.clock()
+        self.last_timer = timer_name
+
+    def finish_timer(self, timer_name=None):
+        if timer_name is None:
+            timer_name = self.last_timer
+        self.out(timer_name, "{0:0.2f} s".format(time.clock() - self.timers[timer_name]))
 
 
-        for d in xrange(dcount):
-            for wInd in xrange(len(ndw[d])):
-                w, w_val = ndw[d][wInd][0], ndw[d][wInd][1]
-                delta = phi[w] * theta[:, d]
-                delta_sum = np.sum(delta)
-                if delta_sum > 0:
-                    delta = delta * w_val / delta_sum
-                    nwt[w] += delta
-                    ndt[d] += delta
+class EMAlgorithm(Algorithm):
 
-        #for w in xrange(wcount):
-        #    phi[w] = positive_slice(nwt[w] + alpha[w])
-        for w in xrange(wcount):
-            phi[w] = positive_slice(nwt[w] - alpha[0] * phi[w] * (np.sum(phi[w]) - phi[w]))
+    def __init__(self, wcount, dcount, tcount, t0count, algrorithm_steps=50):
+        Algorithm.__init__(self)
+        self.wcount = wcount
+        self.dcount = dcount
+        self.tcount = tcount
+        self.t0count = t0count
+        self.algorithm_steps = algrorithm_steps
 
-        for t in xrange(tcount):
-            theta[t] = positive_slice(ndt[:, t] + beta[t])
+    def gen_theta(self, dirichlet_factor):
+        self.theta = np.empty((self.tcount, self.dcount))
+        self.theta[-1] = np.random.random((self.dcount, )) * 3
+        self.theta[:-1, :] = mr.dirichlet([dirichlet_factor] * (self.tcount - 1), self.dcount).transpose()
+        cut_zeroes(self.theta)
+        self.theta = normalized_matrix_by_columns(self.theta)
 
-        theta = normalized_matrix_by_columns(theta)
-        phi = normalized_matrix_by_columns(phi)
+    def gen_phi(self, dirichlet_factor):
+        self.phi = np.empty((self.wcount, self.tcount))
+        self.phi[:, -1] = np.fromfunction(lambda i: 1.0 / (i + 1), (self.wcount, ), dtype=float) * (
+            0.8 + np.random.random((self.wcount, )) * 0.4)
+        self.phi[:, :-1] = mr.dirichlet(1 / self.phi[:, -1] / self.wcount * dirichlet_factor, self.tcount - 1).transpose()
+        cut_zeroes(self.phi)
+        self.phi = normalized_matrix_by_columns(self.phi)
 
-        step += 1
+    def gen_collection(self):
+        nd = mr.randint(600, 1000, self.dcount)
 
-        finish = time.clock()
-        print "[EM-Algorithm] Step:", step
-        print "[EM-Algorithm]", "%.2f" % (finish - start), "seconds."
+        proportion = np.sum(normalized(nd) * self.theta[-1] * np.sum(self.phi[:, -1]))
+        self.out("Background theme word proportion:", proportion)
 
-    return phi, theta
+        pwd = self.phi.dot(self.theta)
+        self.ndw = []
+        for d in xrange(self.dcount):
+            columnd = pround(pwd[:, d] * nd[d])
+            columnd_tup = np.dstack((np.arange(len(columnd)), columnd))[0]
+            self.ndw.append(columnd_tup[columnd > 0, :])
 
+    def generate_data(self, dirichlet_factor):
+        self.start_timer("Generating theta:")
+        self.gen_theta(dirichlet_factor)
+        self.finish_timer()
 
-def generate_data(tcount, dcount, wcount, sparsity_factor):
-    start = time.clock()
-    print "Generating theta..."
-    theta = gen_theta(tcount, dcount, sparsity_factor)
-    finish = time.clock()
-    print "Generated in", "%.2f" % (finish - start), "seconds.", "\n"
+        self.start_timer("Generating phi:")
+        self.gen_phi(dirichlet_factor)
+        self.finish_timer()
 
-    start = time.clock()
-    print "Generating phi..."
-    phi = gen_phi(wcount, tcount, sparsity_factor)
-    finish = time.clock()
-    print "Generated in", "%.2f" % (finish - start), "seconds.", "\n"
+        self.start_timer("Generating collection:")
+        self.gen_collection()
+        self.finish_timer()
 
-    start = time.clock()
-    print "Generating collection..."
-    ndw = gen_collection(phi, theta)
-    finish = time.clock()
-    print "Generated in", "%.2f" % (finish - start), "seconds.", "\n"
-    return phi, theta, ndw
+    def process(self, alpha, beta):
+        self.start_timer("EM-Algorithm:")
+        self.out("W =", self.wcount)
+        self.out("T =", self.t0count)
+        self.out("D =", self.dcount)
 
+        self.theta0 = np.random.random((self.t0count, self.dcount))
+        self.phi0 = np.random.random((self.wcount, self.t0count))
+        self.theta0 = normalized_matrix_by_columns(self.theta0)
+        self.phi0 = normalized_matrix_by_columns(self.phi0)
 
-def calculate_hellinger_dists(correct_phi0, correct_theta0, correct_product, phi, theta, product):
-    dist_phi = hellinger2_matrix(correct_phi0, phi)
-    dist_theta = hellinger2_matrix(correct_theta0, theta)
-    dist_product = hellinger2_matrix(correct_product, product)
-    print "Hellinger distance for phi:", dist_phi
-    print "Hellinger distance for theta:", dist_theta
-    print "Hellinger distance for product:", dist_product
-    return dist_phi, dist_theta, dist_product
+        nwt = np.empty((self.wcount, self.t0count))
+        ndt = np.empty((self.dcount, self.t0count))
+        nd = np.empty(self.dcount)
 
+        for d in xrange(self.dcount):
+            nd[d] = self.ndw[d][:, 1].sum()
 
-def constuct_correct_matrices(phi0, theta0, res):
-    correct_phi0 = np.empty(phi0.shape)
-    correct_theta0 = np.empty(theta0.shape)
-    for e in res:
-        correct_phi0[:, e[1]] = phi0[:, e[0]]
-    for e in res:
-        correct_theta0[e[1]] = theta0[e[0]]
-    correct_product = correct_phi0.dot(correct_theta0)
-    return correct_phi0, correct_theta0, correct_product
+        step = 0
 
+        for i in xrange(self.algorithm_steps):
+            self.start_timer("Iteration {}:".format(i))
+            nwt.fill(0)
+            ndt.fill(0)
 
-def compare_matrices(phi0, theta0, phi, theta):
-    cost_matrix = np.empty((theta0.shape[0], theta.shape[0]))
-    for i in xrange(theta0.shape[0]):
-        for j in xrange(theta.shape[0]):
-            cost_matrix[i][j] = theme_dist(phi0, theta0, phi, theta, i, j)
-    print "Hungarian algorithm..."
-    start = time.clock()
-    res = linear_assignment(cost_matrix)
-    finish = time.clock()
-    print "Total time:", "%.2f" % (finish - start), "seconds.", "\n"
-    return res
+            for d in xrange(self.dcount):
+                for wInd in xrange(len(self.ndw[d])):
+                    w, w_val = self.ndw[d][wInd][0], self.ndw[d][wInd][1]
+                    delta = self.phi0[w] * self.theta0[:, d]
+                    delta_sum = np.sum(delta)
+                    if delta_sum > 0:
+                        delta = delta * w_val / delta_sum
+                        nwt[w] += delta
+                        ndt[d] += delta
 
+            #for w in xrange(self.wcount):
+            #    phi[w] = positive_slice(nwt[w] + alpha[w])
+            for w in xrange(self.wcount):
+                self.phi0[w] = positive_slice(nwt[w] - alpha[0] * self.phi0[w] * (np.sum(self.phi0[w]) - self.phi0[w]))
 
-def reconstruct_subjects(phi0, theta0, phi, theta):
-    t = phi.shape[1]
-    t0 = phi0.shape[1]
-    res = []   
-    for i in xrange(t0):
-        dists_t = [theme_dist(phi0, theta0, phi, theta, i, j) for j in xrange(t)]
-        min_ind = np.argmin(dists_t)
-        dists_t0 = [theme_dist(phi0, theta0, phi, theta, j, min_ind) for j in xrange(t0)]
-        min_ind0 = np.argmin(dists_t0)
-        if min_ind0 == i:
-            res.append((min_ind, i, dists_t[min_ind]))
-    
-    return res
+            for t in xrange(self.t0count):
+                self.theta0[t] = positive_slice(ndt[:, t] + beta[t])
+
+            self.theta0 = normalized_matrix_by_columns(self.theta0)
+            self.phi0 = normalized_matrix_by_columns(self.phi0)
+
+            step += 1
+            self.finish_timer()
+        self.finish_timer("EM-Algorithm:")
+
+    def normalize_thetas(self):
+        self.normalize_theta = normalized_matrix_by_rows(self.theta)
+        self.normalize_theta0 = normalized_matrix_by_rows(self.theta0)
+
+    def compare_matrices(self):
+        cost_matrix = np.empty((self.t0count, self.tcount))
+        for i in xrange(self.t0count):
+            for j in xrange(self.tcount):
+                cost_matrix[i][j] = theme_dist(self.phi0, self.normalize_theta0, self.phi, self.normalize_theta, i, j)
+        self.start_timer("Hungarian algorithm:")
+        self.theme_assigment = linear_assignment(cost_matrix)
+        self.finish_timer()
+
+    def constuct_correct_matrices(self):
+        self.correct_phi0 = np.empty(self.phi0.shape)
+        self.correct_theta0 = np.empty(self.theta0.shape)
+        for asgn in self.theme_assigment:
+            self.correct_phi0[:, asgn[1]] = self.phi0[:, asgn[0]]
+        for asgn in self.theme_assigment:
+            self.correct_theta0[asgn[1]] = self.theta0[asgn[0]]
+
+    def calculate_hellinger_dists(self):
+        dist_phi = hellinger2_matrix(self.correct_phi0, self.phi)
+        dist_theta = hellinger2_matrix(self.correct_theta0, self.theta)
+        dist_product = hellinger2_matrix(self.correct_phi0.dot(self.correct_theta0), self.phi.dot(self.theta))
+        self.out("Hellinger distance for phi:", dist_phi)
+        self.out("Hellinger distance for theta:", dist_theta)
+        self.out("Hellinger distance for product:", dist_product)
+
+    def reconstruct_themes(self):
+        self.reconstructed_themes = []
+        for i in xrange(self.t0count):
+            dists_t = [theme_dist(self.phi0, self.theta0, self.phi, self.theta, i, j) for j in xrange(self.tcount)]
+            min_ind = np.argmin(dists_t)
+            dists_t0 = [theme_dist(self.phi0, self.theta0, self.phi, self.theta, j, min_ind) for j in xrange(self.t0count)]
+            min_ind0 = np.argmin(dists_t0)
+            if min_ind0 == i:
+                self.reconstructed_themes.append((min_ind, i, dists_t[min_ind]))
